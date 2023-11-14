@@ -1,0 +1,474 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[english]{babel}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{hyperref} % clickable links in the document
+\usepackage{enumitem} % (a), (b), etc labels
+
+\usepackage{xcolor} % support of \red text
+\newcommand{\red}{\textcolor{red}} % support of \red text
+
+\newtheorem{Thm}{Theorem}[section]
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Rem}[Thm]{Remark}
+\newtheorem{Ex}[Thm]{Example}
+\newtheorem{Cla}[Thm]{Claim}
+\newtheorem{Exer}[Thm]{Exercise}
+\newtheorem{Prob}[Thm]{Problem}
+
+\newcommand{\embeds}{\hookrightarrow}
+\newcommand{\projects}{\twoheadrightarrow}
+\newcommand{\eqdef}{\stackrel{\mathrm{def}}{=}}
+
+\DeclareMathOperator{\assign}{\coloneqq}        % Assingment operator
+\newcommand{\R}{\mathbb{R}}        % Real
+\newcommand{\Q}{\mathbb{Q}}        % rationals
+\newcommand{\C}{\mathbb{C}}        % Complex
+\renewcommand{\P}{\mathbb{P}}        % Projective
+\newcommand{\A}{\mathbb{A}}        % Affine
+\renewcommand{\O}{\mathcal{O}}        % Structure sheaf
+\newcommand{\Id}{\mathbf{Id}}        % Identity
+\newcommand{\SL}{\mathbf{SL}_3(\mathbb{Z})}        % SL_3(Z)
+\newcommand{\Mat}{\mathbf{Mat}_3(\mathbb{C})}        % Mat_3( C )
+\newcommand{\SLp}{\mathbf{SL}_3(p)}        % SL_3(p)
+% \newcommand{\SLp}{\Gamma_p}        % a congruence subgroup
+
+\DeclareMathOperator{\Spec}{Spec}        % Spec
+\DeclareMathOperator{\Proj}{Proj}        % Proj
+\DeclareMathOperator{\Reg}{Reg}        % Regulator
+\DeclareMathOperator{\disc}{disc}        % discriminant
+
+
+\begin{document}
+\title{A sample computation}	
+\author{Altan Erdnigor}
+\maketitle
+
+\section{Notation}
+\begin{itemize}
+\item $p$ a prime number.
+\item $\SL$ the special linear group over $\mathbb{Z}$.
+\item $\SLp$ the $p$th congruence subgroup of $\SL$.
+\item $Z_G(x)$ the centralizer of $x \in G$.
+\item 
+\begin{equation}
+\label{matrix_small}
+A = 
+\begin{pmatrix}
+0 & 0 & 1 \\
+1 & 0 & p+1 \\
+0 & 1 & p
+\end{pmatrix}
+\in \SL
+\end{equation}
+\item 
+\begin{equation}
+\label{matrix_big}
+\tilde A = \Id + p A =
+\begin{pmatrix}
+1 & 0 & p \\
+p & 1 & p + p^2 \\
+0 & p & 1 + p^2
+\end{pmatrix}
+\in \SLp
+\end{equation}
+
+\item If $C$ is a matrix, $\chi_C(\lambda) \assign \det(\lambda \Id - C)$ is the characteristics polynomial.
+\item $ f(t) \assign \chi_A(t) = t^3 - p t^2 - (p + 1) t - 1$.
+
+\end{itemize}
+
+\section{Intro}
+In this note we find an infinite series of primes  
+\begin{equation}
+	\label{the_primes_sequence}
+59, 101, 167, 173, 211, 223, 271, 307, 317, 347, 449, 463, 593, 599, 607, 691, 719, 809, 821, 829, 853, \ldots
+\end{equation}
+with the following properties:
+\begin{enumerate}
+\item
+The regularor of $\tilde A$
+grows as $\approx \ln^2(p)$. 
+
+That is, $\Reg ( \Q(\alpha)/\Q ) \approx \ln^2(p) $ for $\alpha$ a root of $\chi_{\tilde A}$.
+
+\item
+The index of the centralizers
+\[
+	[Z_{\SLp}(\tilde A) : Z_{\SL}(\tilde A)] < 3p
+\] 
+is bounded by $3p$.
+\end{enumerate}
+Combining them both one gets something about systoles which is of interest of geometric group theory?
+\section{Regulator}
+We refer to Keith Conrad's write-up on Dirichlet's unit theorem and regulators \cite{conraddirichlet} for the definitions.
+The current proof mimics the proof of Theorem 5.12 of Conrad.
+
+Notice that 
+\begin{multline}
+\chi_{\tilde A}(\lambda) 
+= \det(\lambda \Id - \tilde A) \\
+= \det(\lambda \Id - (\Id + p A))
+= \det((\lambda - 1) \Id - p A)\\
+= p^3 \det(\frac{\lambda - 1}p \Id - A)
+= p^3 \chi_A(\frac{\lambda - 1}p)
+.\end{multline}
+Hence adding the root of $\chi_{A}$ or $\chi_{\tilde A}$ result in the same field; therefore we reduce to showing that 
+$\Reg ( \Q(\alpha)/\Q ) \approx \ln^2(p) $ for $\alpha$ a root of $\chi_{A}(t) = f(t) = t^3 - (p t^2 + (p + 1) t + 1) $.
+
+\begin{Lem}
+$\Q(\alpha)/\Q$ is totally real of degree $3$ for primes $p \ne 2$.
+\end{Lem}
+\begin{proof}
+$f(t)$ is irreducible over $\Q$; indeed, by the real roots theorem it's sufficient to check $\pm 1$:
+$$f(1) = - 2 p - 1, f(-1) = - 1 .$$
+
+A simple computation shows that the discriminant of $f(t)$ equals 
+\[
+	\disc_f(p) = p^4 + 2 p^3 - 5 p^2 - 6 p - 23 
+.\]
+If $p \ge 3$ the discriminant  $\disc_f(p) > 0$ is positive.
+Therefore the cubic extension is totally real.
+\end{proof}
+
+\begin{Prop}
+	\label{prop_multiplicative_group_structure}
+$\mathbb{Z}[\alpha]^{*} = \{ \pm \alpha^a (\alpha + 1)^b \mid a, b \in \mathbb{Z} \} $.
+\end{Prop}
+Note that $\alpha, \alpha + 1$ are not necessarily fundamental units in $\Q(\alpha)/\Q$ as we don't claim that the ring of integers of $\Q(\alpha) / \Q$ coincides with $\mathbb{Z}[\alpha]$.
+\begin{proof}
+Note that $f(\alpha) = 0$ implies 
+\begin{equation}
+\label{equation_unit}
+\alpha (\alpha + 1) (\alpha - p) = 1
+\end{equation}
+It shows that $\alpha, \alpha + 1$ are indeed units.
+
+Let $\alpha_1 > \alpha_2 > \alpha_3 \in \R$ be the three different roots of $f$.
+We shall compute them approximately using \eqref{equation_unit}.
+\begin{gather*}
+\alpha_1 = p + 1 + O\left(\frac{1}{p^3}\right), \\
+\alpha_2 = - \frac{1}{ p } + O\left(\frac{1}{p^4}\right), \\
+\alpha_3 = - 1 + \frac{1}{ p } + O\left(\frac{1}{p^3}\right)
+.\end{gather*}
+\begin{Rem}
+A computation shows that for $p = 10000$
+we have
+ \[
+\alpha_1 = 10001.000000009999 ,
+\alpha_2 = -0.00010000000000010001 ,
+\alpha_3 = -0.9999000099970006 
+.\] 
+It is not important that $p$ is not a prime in this case as the estimate works for any sufficiently large $p$.
+\end{Rem}
+
+By the definition of the regulator we have
+\begin{multline}
+\Reg(\alpha, \alpha + 1) = 
+\begin{vmatrix}
+\ln |\alpha_1| 		& \ln |\alpha_2| \\
+\ln |\alpha_1 + 1| 	& \ln |\alpha_2 + 1|
+\end{vmatrix} 
+\\
+\approx
+\begin{vmatrix}
+\ln |p + 1| 	& \ln |\frac{-1}{p}| \\
+\ln |p + 2| 	& \ln |\frac{-1}{p} + 1|
+\end{vmatrix}
+=
+\ln(p + 1)
+(\ln(p - 1) - \ln(p))
++
+\ln(p + 2) \ln(p)
+\\
+=
+\ln(p + 1) \ln(p - 1) - \ln(p + 1) \ln(p) + \ln(p + 2) \ln(p)
+.\end{multline}
+Therefore $ \Reg(\alpha, \alpha + 1) > 0 $ for all prime $p$.
+
+Hence $\alpha, \alpha + 1$ are independent units. 
+
+By Corollary 5.9 from Conrad it is sufficient to check
+\[
+\frac{16 \Reg(\alpha, \alpha + 1) }
+{(\ln(\disc_f/4))^2} 
+< 2
+.\] 
+Substituting, we obtain
+\[
+\frac{16 \Reg(\alpha, \alpha + 1) }
+{(\ln(\disc_f/4))^2} 
+\approx
+\frac{16 
+\left(\ln(p + 1) \ln(p - 1) - \ln(p + 1) \ln(p) + \ln(p + 2) \ln(p)\right)
+}
+{(\ln(
+(p^4 + 2 p^3 - 5 p^2 - 6 p - 23)
+/4))^2} 
+.\] 
+Asymptotically, the latter equals
+\[
+\stackrel{p \to \infty}{\longrightarrow}
+\frac{16 
+\ln(p)^2
+}
+{(\ln(
+p^4 ))^2} = 1
+.\] 
+Therefore it is $< 2$ for big enough $p$, QED.
+\end{proof}
+\begin{Rem}
+One can do the estimate more carefully, but for now postpone it. 
+Note that the sequence \ref{the_primes_sequence} begins from $p = 59$, thus we can restrict onto $p \ge 59$.
+\end{Rem}
+\begin{Rem}
+We just proved that the regulator is approximately 
+\[
+\ln(p + 1) \ln(p - 1) - \ln(p + 1) \ln(p) + \ln(p + 2) \ln(p)
+,\] 
+which is close to $\ln^2 p$ we wanted from the beginning.
+\end{Rem}
+
+
+\section{Centralizers}
+\begin{Prop}
+	\label{proposition_centralizer_in_sl}
+The centralizer of $\tilde A$ in $\SL$
+is generated by $A, A+\Id$.
+$$Z_{\SL}(\tilde A) = \{ \pm A^a (A + \Id)^b \mid a, b \in \mathbb{Z} \} .$$ 
+\end{Prop}
+\begin{proof}
+Since $\tilde A$ is regular, its centralizer in $ \Mat $ is $\C \left< \Id, A, A^2 \right> $.
+Now, 
+\[
+\C \left< \Id, A, A^2 \right> \cap \SL 
+\subset \mathbb{Z} 
+\left< \Id, A, A^2 \right>
+.\] 
+Indeed,
+\begin{equation}
+\Id = 
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}, 
+A = 
+\begin{pmatrix}
+0 & 0 & 1 \\
+1 & 0 & p+1 \\
+0 & 1 & p
+\end{pmatrix}, 
+A^2 = 
+\begin{pmatrix}
+0 & 1 & p \\
+0 & p+1 & p^2+p+1 \\
+1 & p & p^2+p+1
+\end{pmatrix}, 
+\end{equation}
+Considering the first matrix column we see that if a complex combination has integer coefficients, it is in fact integer combination.
+
+Moreover, 
+the centralizer of $\tilde A$ is a group, therefore it lies inside the multiplicative group of $\mathbb{Z}[A]$
+\[
+Z_{\SL}(\tilde A)  \subset 
+\C \left< \Id, A, A^2 \right> \cap \SL 
+\subset \mathbb{Z}[A]^*
+.\] 
+There is an isomorphism of $\mathbb{Z}$-algebras $\mathbb{Z}[A] \simeq \mathbb{Z}[x]/(f(x)) = \mathbb{Z}[\alpha]$.
+Applying Proposition \ref{prop_multiplicative_group_structure} end the proof
+\[
+Z_{\SL}(\tilde A) 
+\subset \mathbb{Z}[A]^* =\{ \pm A^a (A + \Id)^b \mid a, b \in \mathbb{Z} \}.\] 
+\end{proof}
+
+We are to study the centralizer of $\tilde A$ in $\SLp$.
+\[
+Z_{\SLp}(\tilde A) \subset 
+Z_{\SL}(\tilde A) \cong \mathbb{Z}^2
+.\] 
+In general this subgroup can be difficult to describe; 
+that leads to the following
+\begin{Def}
+	A prime number $p$ has property $Ch$ if $t^3 - t - 1 \in \mathbb F_p[t]$ splits completely, that is  
+\[
+t^3 - t - 1 = (t - \beta_1)(t - \beta_2)(t - \beta_3)
+,\] 
+for some $\beta_1, \beta_2, \beta_3 \in \mathbb F_p$.
+\end{Def}
+The sequence \eqref{the_primes_sequence} is exactly the sequence of primes with the property $Ch$.
+Why is it infinite?
+\begin{Prop}
+The density of primes with the property $Ch$ is $\frac{1}{6}$; in particular, there are infinite number of such primes.
+\end{Prop}
+\begin{proof}
+Let $E/ \Q$ be the splitting field of $g(t) = t^3 - t - 1$.
+The discriminant of $g$ equals $-23$, hence $E / \Q$ is of degree $6$.
+
+Recall that a prime $p$ in $\Q$ is said to \emph{split completely} iff 
+\[
+p \mathbb{Z} = \gamma_1 \gamma_2 \gamma_3 \gamma_4 \gamma_5 \gamma_6
+,\] 
+for $\gamma_i$ primes in $\O_E$.
+\red{$p$ splits completely iff it satisfies $Ch$}.
+\red{feels close to Cox \cite{cox2022primes} Proposition 5.11}.
+
+By Chebotarev's density theorem the density of primes splitting completely in $E$ is one over the degree of the extension.
+\end{proof}
+
+\begin{Prop}
+Let prime $p$ satisfy $Ch$.
+
+The centralizer $Z_{\SLp}(\tilde A)$ contains $\tilde A$ and $(A + \Id)^{p - 1}$.
+\end{Prop}
+\begin{proof}
+The only thing to prove is that 
+$(A + \Id)^{p - 1} \in \SLp$.
+It suffices to show 
+\[
+	%(\alpha + 1)^{p-1} - 1 \in p \mathbb{Z}[\alpha] ~ ~  (or \in p \O_{\Q(\alpha)}  ? )
+	(x + 1)^{p - 1} - 1 \in (p, x^3 - x - 1)
+.\] 
+The polynomial vanishes at all but one residues from $\mathbb F_p$, namely at $\mathbb F_p \setminus \{ -1 \} $.
+
+By the $Ch$ property $x^3 - x - 1$ has three distinct roots in $\mathbb F_p$; clearly $-1$ is not one of them.
+
+Therefore the polynomial $ x^3 - x - 1 $ divides $ (x + 1)^{p - 1} - 1 $ in $\mathbb F_p[x]$, and we are done.
+\end{proof}
+
+\begin{Thm}
+	The index of the centralizers divides $3 (p - 1) $. 
+\[
+	[Z_{\SLp}(\tilde A) : Z_{\SL}(\tilde A)] | 3 (p-1)
+.\] 
+In particular, it is smaller than $3 p$.
+\end{Thm}
+\begin{proof}
+Identify $Z_{\SL}(\tilde A) \cong \mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}^2$ as in Proposition \ref{proposition_centralizer_in_sl}.
+
+Observe that 
+\[
+1 + p \alpha = \alpha^3 (\alpha + 1)^{-1} 
+.\] 
+Indeed, multiplying both sides by $(\alpha + 1)$ we obtain
+\[
+1 + (p + 1) \alpha + \alpha^2 = \alpha^3 
+,\] 
+which holds true by the definition of $\alpha$.
+
+By the previous Proposition 
+$Z_{\SLp}(\tilde A)$ contains $\binom{3}{-1}, \binom{0}{p-1}$;
+Clearly, the index
+\[
+\mathbb{Z} \left< \binom{3}{-1}, \binom{0}{p-1}\right> \subset \mathbb{Z}^2
+,\] 
+equals $3 (p-1)$ and the index 
+$ [Z_{\SLp}(\tilde A) : Z_{\SL}(\tilde A)]$
+has to divide it.
+\end{proof}
+
+
+\section{Fantasies}
+\subsection{An exercise in generating functions}
+
+Let 
+$$
+f(x) = x^3 - a x^2 + b x - c
+.$$ 
+be a qubic polynomial.
+Let $\alpha_1, \alpha_2, \alpha_3$ to be its roots.
+
+We have
+$$
+t^3 f(t^{-1}) = 1 - a t + b t^2 - c t^3 = (1 - t \alpha_1)(1 - t \alpha_2)(1 - t \alpha_3)
+.$$ 
+
+The goal is to prove
+\begin{Prop}
+\label{prop_generating_function_roots_powers}
+Define a generating series
+\[
+F(t, q) \assign \sum_{i = 0}^\infty 
+(1 - t \alpha_1^i)(1 - t \alpha_2^i)(1 - t \alpha_3^i) q^i
+.\] 
+Then we have 
+\[
+F(t, q) =
+\frac{1}{1 - q}
+- t \frac{ 3 - 2 a q + b q^2 }{1 - a q + b q^2 - c q^3}
++ t^2 \frac{ 3 - 2 b q + a c q^2 }{ 1 - b q + a c q^2 - c^2 q^3 }
+- t^3 \frac{1}{ 1 - c q}
+.\] 
+\end{Prop}
+\begin{proof}
+A direct computation.
+\begin{multline}
+F(t, q) 
+= \sum_{i = 0}^\infty 
+(1 - t \alpha_1^i)(1 - t \alpha_2^i)(1 - t \alpha_3^i) q^i
+\\ = 
+\sum_{i = 0}^\infty  q^i
+- t \sum_{i = 0}^\infty (\alpha_1^i + \alpha_2^i +  \alpha_3^i) q^i
++ t^2 \sum_{i = 0}^\infty (\alpha_2^i\alpha_3^i + \alpha_1^i\alpha_3^i + \alpha_1^i\alpha_2^i) q^i
+- t^3 \sum_{i = 0}^\infty (\alpha_1^i \alpha_2^i \alpha_3^i) q^i
+\\ = 
+\frac{1}{1 - q}
+- t \left( \frac{1}{1 - \alpha_1 q} + \frac{1}{1 - \alpha_2 q}  + \frac{1}{1 - \alpha_3 q}\right) 
+\\ + t^2  \left( \frac{1}{1 - \alpha_2 \alpha_3 q} + \frac{1}{1 - \alpha_1 \alpha_3 q}  + \frac{1}{1 - \alpha_1 \alpha_2 q}\right) 
+- t^3 \frac{1}{1 - \alpha_1 \alpha_2 \alpha_3 q}
+\\ = 
+\frac{1}{1 - q}
+- t \frac{{(1 - \alpha_2 q)( 1 - \alpha_3 q) + (1 - \alpha_1 q)( 1 - \alpha_3 q) + (1 - \alpha_1 q)( 1 - \alpha_2 q) }
+}{(1 - \alpha_1 q)( 1 - \alpha_2 q)(1 - \alpha_3 q)}
+\\ + t^2 \frac{{(1 - \alpha_1\alpha_3 q)( 1 - \alpha_1\alpha_2 q) + (1 - \alpha_2\alpha_3 q)( 1 - \alpha_1\alpha_2 q) + (1 - \alpha_2\alpha_3 q)( 1 - \alpha_1\alpha_3 q) }
+}{(1 - \alpha_2\alpha_3 q)( 1 - \alpha_1\alpha_3 q)(1 - \alpha_1\alpha_2 q)}
+\\ - t^3 \frac{1}{1 - \alpha_1 \alpha_2 \alpha_3 q}
+\\ = 
+\frac{1}{1 - q}
+- t 
+\frac{
+	3 - 2 (\alpha_1 + \alpha_2 + \alpha_3) q + (\alpha_2\alpha_3 + \alpha_1\alpha_3 + \alpha_1\alpha_2) q^2
+}{q^3 f(q^{-1} )}
+\\ + t^2 \frac{
+	3 - 2 (\alpha_2 \alpha_3 + \alpha_1 \alpha_3 + \alpha_1 \alpha_2 ) q + (\alpha_1 + \alpha_2 + \alpha_3) \alpha_1 \alpha_2 \alpha_3  q^2
+}{
+	1 - (\alpha_2 \alpha_3 + \alpha_1 \alpha_3 + \alpha_1 \alpha_2 ) q + (\alpha_1 + \alpha_2 + \alpha_3) \alpha_1 \alpha_2 \alpha_3 q^2 - \alpha_1^2 \alpha_2^2 \alpha_3^2 q^3
+}
+\\ - t^3 \frac{1}{1 - \alpha_1 \alpha_2 \alpha_3 q}
+\\ = 
+\frac{1}{1 - q}
+- t \frac{ 3 - 2 a q + b q^2 }{1 - a q + b q^2 - c q^3}
++ t^2 \frac{ 3 - 2 b q + a c q^2 }{ 1 - b q + a c q^2 - c^2 q^3 }
+- t^3 \frac{1}{1 - c q}
+\end{multline}
+\end{proof}
+
+Apply Proposition  
+\ref{prop_generating_function_roots_powers}
+to 
+$$g(t) = t^3 - t - 1.$$
+Therefore
+\[
+G(t, q) = 
+\frac{1}{1 - q}
+- t \frac{ 3 - q^2 }{1 - q^2 - q^3}
++ t^2 \frac{ 3 + 2 q }{ 1 + q - q^3 }
+- t^3 \frac{1}{1 - q}
+.\] 
+
+
+
+
+
+
+
+\bibliography{mybib}
+\bibliographystyle{plain}
+
+\end{document}
