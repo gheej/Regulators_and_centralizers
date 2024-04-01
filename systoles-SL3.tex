@@ -1,0 +1,383 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[english]{babel}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{hyperref} % clickable links in the document
+\usepackage{url} % clickable links in the document
+\usepackage{enumitem} % (a), (b), etc labels
+
+\usepackage{xcolor} % support of \red text
+\newcommand{\red}{\textcolor{red}} % support of \red text
+
+\newtheorem{Thm}{Theorem}[section]
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Rem}[Thm]{Remark}
+\newtheorem{Ex}[Thm]{Example}
+\newtheorem{Cla}[Thm]{Claim}
+\newtheorem{Exer}[Thm]{Exercise}
+\newtheorem{Prob}[Thm]{Problem}
+
+\newcommand{\embeds}{\hookrightarrow}
+\newcommand{\projects}{\twoheadrightarrow}
+\newcommand{\eqdef}{\stackrel{\mathrm{def}}{=}}
+
+\DeclareMathOperator{\assign}{\coloneqq}        % Assingment operator
+\newcommand{\R}{\mathbb{R}}        % Real
+\newcommand{\Q}{\mathbb{Q}}        % rationals
+\newcommand{\C}{\mathbb{C}}        % Complex
+\renewcommand{\P}{\mathbb{P}}        % Projective
+\newcommand{\A}{\mathbb{A}}        % Affine
+\renewcommand{\O}{\mathcal{O}}        % Structure sheaf
+\newcommand{\Id}{\mathbf{Id}}        % Identity
+\newcommand{\SL}{\mathbf{SL}_3(\mathbb{Z})}        % SL_3(Z)
+\newcommand{\Mat}{\mathbf{Mat}_3(\mathbb{C})}        % Mat_3( C )
+\newcommand{\SLp}{\Gamma_p}        % a congruence subgroup
+\newcommand{\phip}{\phi_p}        % the golden ratio mod(p)
+
+\DeclareMathOperator{\Spec}{Spec}        % Spec
+\DeclareMathOperator{\Proj}{Proj}        % Proj
+\DeclareMathOperator{\Reg}{Reg}        % Regulator
+\DeclareMathOperator{\disc}{disc}        % discriminant
+
+
+\begin{document}
+\title{On $2$-systoles of congruence quotients of $\mathrm{SL}_3$.}	
+\author{Mikhail Belolipetsky, Altan Erdnigor, Shmuel Weinberger}
+\maketitle
+
+\section{Notation}
+\begin{itemize}
+\item $p$ a prime number.
+\item $\SL$ the special linear group over $\mathbb{Z}$.
+\item $\SLp$ the $p$th congruence subgroup of $\SL$.
+\item $Z_G(x)$ the centralizer of $x \in G$.
+\item 
+\begin{equation}
+\label{matrix_small}
+A = 
+\begin{pmatrix}
+0 & 0 & 1 \\
+1 & 0 & p+2 \\
+0 & 1 & 2p
+\end{pmatrix}
+\in \SL
+\end{equation}
+\item 
+\begin{equation}
+\label{matrix_big}
+\tilde A = \Id + p A =
+\begin{pmatrix}
+1 & 0 & p \\
+p & 1 & 2 p + p^2 \\
+0 & p & 1 + 2 p^2
+\end{pmatrix}
+\in \SLp
+\end{equation}
+
+\item If $C$ is a matrix, $\chi_C(\lambda) \assign \det(\lambda \Id - C)$ is the characteristics polynomial.
+\item $ f(t) \assign \chi_A(t) = t^3 - 2p t^2 - (p + 2) t - 1$.
+
+\end{itemize}
+
+\section{Intro}
+Recall the Lucas primes (see \url{https://en.wikipedia.org/wiki/Lucas_number#Lucas_primes}, \url{https://t5k.org/top20/page.php?id=48})
+\begin{equation}
+	\label{the_primes_sequence}
+2, 3, 7, 11, 29, 47, 199, 521, 2207, 3571, 9349, 3010349, 54018521, 370248451, 6643838879, \ldots
+\end{equation}
+In this notes we establish the following results:
+\begin{enumerate}
+\item
+The regularor of $\tilde A$
+grows as $\approx \ln^2(p)$. 
+
+That is, $\Reg ( \Q(\alpha)/\Q ) \approx \ln^2(p) $ for $\alpha$ a root of $\chi_{\tilde A}$.
+
+\item
+The index of the centralizers
+$ [Z_{\SL}(\tilde A) : Z_{\SLp}(\tilde A)] $
+grows as $O(\ln p)$ for $p$ a Lucas prime.
+\end{enumerate}
+This might be interesting.
+\section{Regulator}
+We refer to Keith Conrad's write-up on Dirichlet's unit theorem and regulators \cite{conraddirichlet} for the definitions.
+The current proof mimics the proof of Theorem 5.12 of Conrad.
+
+Notice that 
+\begin{multline}
+\chi_{\tilde A}(\lambda) 
+= \det(\lambda \Id - \tilde A) \\
+= \det(\lambda \Id - (\Id + p A))
+= \det((\lambda - 1) \Id - p A)\\
+= p^3 \det(\frac{\lambda - 1}p \Id - A)
+= p^3 \chi_A(\frac{\lambda - 1}p)
+.\end{multline}
+Hence adding the root of $\chi_{A}$ or $\chi_{\tilde A}$ result in the same field; therefore we reduce to showing that 
+$\Reg ( \Q(\alpha)/\Q ) \approx \ln^2(p) $ for $\alpha$ a root of $\chi_{A}(t) = f(t) = t^3 - (2p t^2 + (p + 2) t + 1) $.
+
+\begin{Lem}
+$\Q(\alpha)/\Q$ is totally real of degree $3$ for primes $p \ne 2$.
+\end{Lem}
+\begin{proof}
+$f(t)$ is irreducible over $\Q$; indeed, by the rational roots theorem it's sufficient to check $\pm 1$:
+$$f(1) = - 3 p - 2, f(-1) = - p .$$
+
+A simple computation shows that the discriminant of $f(t)$ equals 
+\[
+	\disc_f(p) = 4 p^4 - 12 p^3 + 4 p^2 - 24 p + 5
+.\]
+If $p > 4$ the discriminant  $\disc_f(p) > 0$ is positive.
+Therefore the cubic extension is totally real.
+\end{proof}
+
+\begin{Prop}
+	\label{prop_multiplicative_group_structure}
+$\mathbb{Z}[\alpha]^{*} = \{ \pm \alpha^a (2\alpha + 1)^b \mid a, b \in \mathbb{Z} \} $.
+\end{Prop}
+Note that $\alpha, 2\alpha + 1$ are not necessarily fundamental units in $\Q(\alpha)/\Q$ as we don't claim that the ring of integers of $\Q(\alpha) / \Q$ coincides with $\mathbb{Z}[\alpha]$.
+\begin{proof}
+Note that $f(\alpha) = 0$ implies 
+\begin{gather}
+\alpha (\alpha^2 - 2p \alpha - (p + 2)) = 1
+\\
+\label{equation_units}
+(1 + 2 \alpha) (1 + p \alpha) = \alpha^3
+\end{gather}
+It shows that $\alpha, 1 + 2 \alpha$ are indeed units.
+
+Let $\alpha_1 > \alpha_2 > \alpha_3 \in \R$ be the three different roots of $f$.
+We shall compute them approximately.
+\begin{gather*}
+\alpha_1 = 2 p + \frac{1}{2} + O\left(\frac{1}{p}\right), \\
+\alpha_2 = - \frac{1}{ p } + O\left(\frac{1}{p^4}\right), \\
+\alpha_3 = - \frac{1}{2} + O\left(\frac{1}{p}\right)
+.\end{gather*}
+% from sympy import *
+% [ins] In [2]: x = symbols('x')
+% [ins] In [3]: p = 10000
+% [ins] In [12]: f = x**3 - 2 * p * x**2 - (p + 2) * x - 1
+% [ins] In [13]: f = Poly(f)
+% [ins] In [16]: nroots(f)
+% Out[16]: [-0.499987498124648, -0.000100000000000100, 20000.5000874981]
+\begin{Rem}
+
+
+
+
+A computation shows that for $p = 10000$
+we have
+ \[
+\alpha_1 = 20000.5000874981 ,
+\alpha_2 = -0.000100000000000100 ,
+\alpha_3 = -0.499987498124648 
+.\] 
+It is not important that $p$ is not a prime in this case as the estimate works for any sufficiently large $p$.
+\end{Rem}
+
+By the definition of the regulator we have
+\begin{multline}
+\Reg(\alpha, 2\alpha + 1) = 
+\begin{vmatrix}
+\ln |\alpha_1| 		& \ln |\alpha_2| \\
+\ln |2 \alpha_1 + 1| 	& \ln |2 \alpha_2 + 1|
+\end{vmatrix} 
+\\
+\approx
+\begin{vmatrix}
+\ln |2p + \frac{1}{2}| 	& \ln |\frac{-1}{p}| \\
+\ln |4 p + 2| 	& \ln |\frac{-2}{p} + 1|
+\end{vmatrix}
+=
+\ln(2p + \frac{1}{2})
+(\ln(p - 2) - \ln(p))
++
+\ln(4p + 2) \ln(p)
+\\
+=
+\ln(2 p + \frac{1}{2}) \ln(p - 2) - \ln(2 p + \frac{1}{2}) \ln(p) + \ln(4p + 2) \ln(p)
+.\end{multline}
+Therefore, $\Reg(\alpha, 2\alpha + 1) > 0 $ for all prime $p$.
+
+Hence $\alpha$ and $2\alpha + 1$ are independent units. 
+
+It is left to prove that they are fundamental units in $\mathbb{Z}[\alpha]$.
+By Corollary 5.9 from Conrad it is sufficient to check
+\[
+\frac{16 \Reg(\alpha, 2\alpha + 1) }
+{(\ln(\disc_f/4))^2} 
+< 2
+.\] 
+Substituting, we obtain
+\[
+\frac{16 \Reg(\alpha, 2\alpha + 1) }
+{(\ln(\disc_f/4))^2} 
+\approx
+\frac{16 (
+\ln(2 p + \frac{1}{2}) \ln(p - 2) - \ln(2 p + \frac{1}{2}) \ln(p) + \ln(4p + 2) \ln(p)
+) }
+{(\ln(
+(p^4 + 2 p^3 - 5 p^2 - 6 p - 23)
+/4))^2} 
+.\] 
+Asymptotically, the latter equals
+\[
+\stackrel{p \to \infty}{\longrightarrow}
+\frac{16 
+\ln(p)^2
+}
+{(\ln(
+p^4 ))^2} = 1
+.\] 
+Therefore it is $< 2$ for big enough $p$.
+\end{proof}
+\begin{Rem}
+One can do the estimate more carefully, but for now postpone it. 
+\end{Rem}
+\begin{Rem}
+We just proved that the regulator is approximately 
+\[
+\ln(2 p + \frac{1}{2}) \ln(p - 2) - \ln(2 p + \frac{1}{2}) \ln(p) + \ln(4p + 2) \ln(p)
+,\] 
+which is close to $\ln^2 p$ we wanted from the beginning.
+\end{Rem}
+
+
+\section{Centralizers}
+\begin{Prop}
+	\label{proposition_centralizer_in_sl}
+The centralizer of $\tilde A$ in $\SL$
+is generated by $A, 2A+\Id$.
+$$Z_{\SL}(\tilde A) = \{ \pm A^a (2 A + \Id)^b \mid a, b \in \mathbb{Z} \} .$$ 
+\end{Prop}
+\begin{proof}
+Since $\tilde A$ is regular, its centralizer in $ \Mat $ is $\C \left< \Id, A, A^2 \right> $.
+Now, 
+\[
+\C \left< \Id, A, A^2 \right> \cap \SL 
+\subset \mathbb{Z} 
+\left< \Id, A, A^2 \right>
+.\] 
+Indeed,
+\begin{equation}
+\Id = 
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}, 
+A = 
+\begin{pmatrix}
+0 & 0 & 1 \\
+1 & 0 & p+2 \\
+0 & 1 & 2p
+\end{pmatrix}, 
+A^2 = 
+\begin{pmatrix}
+0 & 1 & 2p \\
+0 & p+1 & 2p^2+4p+1 \\
+1 & p & 4p^2+p+2
+\end{pmatrix}, 
+\end{equation}
+Considering the first matrix column we see that if a complex combination has integer coefficients, it is in fact integer combination.
+
+Moreover, 
+the centralizer of $\tilde A$ is a group, therefore it lies inside the multiplicative group of $\mathbb{Z}[A]$
+\[
+Z_{\SL}(\tilde A)  \subset 
+\C \left< \Id, A, A^2 \right> \cap \SL 
+\subset \mathbb{Z}[A]^*
+.\] 
+There is an isomorphism of $\mathbb{Z}$-algebras $\mathbb{Z}[A] \simeq \mathbb{Z}[x]/(f(x)) = \mathbb{Z}[\alpha]$.
+Applying Proposition \ref{prop_multiplicative_group_structure} end the proof
+\[
+Z_{\SL}(\tilde A) 
+\subset \mathbb{Z}[A]^* =\{ \pm A^a (2 A + \Id)^b \mid a, b \in \mathbb{Z} \}.\] 
+\end{proof}
+
+We are to study the centralizer of $\tilde A$ in $\SLp$.
+\[
+Z_{\SLp}(\tilde A) \subset 
+Z_{\SL}(\tilde A) \cong \mathbb{Z}^2
+.\] 
+In general this subgroup can be difficult to describe; 
+that leads to cosidering \emph{Lucas primes}.
+
+\begin{Prop}\label{prop:lucas}
+Let $p$ be a Lucas prime.
+Let $k$ be the integer part of $\log_{\phi} p$ where $\phi$ is the golden ratio.
+
+The centralizer $Z_{\SLp}(\tilde A)$ contains $\tilde A$ and $A^{4k}$.
+\end{Prop}
+\begin{proof}
+The only thing to prove is that 
+$A^{4k}  \in \SLp$.
+
+It suffices to show that the eigenvalues of $A \pmod p$ are $4k$-th roots of unity.
+Computing
+\[
+\chi_{A}(t) = f(t) \equiv t^3 - 2 t - 1 = (t + 1) (t^2 - t - 1) \pmod p
+,\] 
+shows that it is left to work with the golden ratio in $\mathbb F_p$ which we denote by $\phip$.
+That is, $\phip \in \mathbb F_{p^2}$ satisfies $\phip^2 - \phip - 1 = 0$.
+
+
+By the definition of a Lucas number we have 
+\begin{equation}
+	\label{eq_lucas_prime_definition}
+p = \phi^k + (-\phi)^{-k} 
+\end{equation}
+where $\phi$ is a root of $x^2 - x - 1$.
+
+The RHS of \eqref{eq_lucas_prime_definition} being invariant under the change $\phi \to (-\phi)^{-1}$ manifests it as a symmetric polynomial in the roots of $x^2 - x - 1$, thus having a presentation
+\[
+\phi^k + (-\phi)^{-k} = P( \phi, (-\phi)^{-1})
+,\] 
+where $P$ is a \emph{universal} polynomial.
+This observation justifies that equation \eqref{eq_lucas_prime_definition} can be taken modulo $p$ to have the form
+\[
+0 = \phip^k + (-\phip)^{-k} 
+,\] 
+which implies 
+\[
+1 = \phip^{4k} 
+.\] 
+\end{proof}
+
+\begin{Thm}
+	If $p$ is a Lucuas prime, then the index of the centralizer is bounded by $4 \log_{\phi} p$:
+\[
+	[Z_{\SL}(\tilde A) : Z_{\SLp}(\tilde A)] \le 4 \log_{\phi} p
+.\] 
+In particular, it grows as $O(\ln p)$.
+\end{Thm}
+\begin{proof}
+Identify $Z_{\SL}(\tilde A) \cong \mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}^2$ as in Proposition \ref{proposition_centralizer_in_sl}.
+
+Observe that by \eqref{equation_units} we have
+\[
+1 + p \alpha = \alpha^3 (2 \alpha + 1)^{-1} 
+.\] 
+
+By the previous proposition 
+$Z_{\SLp}(\tilde A)$ contains $\binom{3}{-1}, \binom{4k}{0}$;
+Clearly, the index
+\[
+\mathbb{Z} \left< \binom{3}{-1}, \binom{4k}{0}\right> \subset \mathbb{Z}^2
+,\] 
+equals $4k \approx 4 \log_{\phi} p$ and the index 
+$ [Z_{\SLp}(\tilde A) : Z_{\SL}(\tilde A)]$
+has to divide it.
+\end{proof}
+
+The observation that comes next is that the sequence of Lucas primes is very sparse. It is conjectured that there are infinitely many of them but even this is not known. In any respect, it is not hard to see that the number of Lucas primes less or equal than $N$ grows at most as fast as $O(\frac{1}{\log\log N})$. From a more general point of view we are interested in the order of the generators of $Z_{\SL}(\tilde A)$ mod $p$. One of the generators can be chosen as $\tilde{A}$ and is equal one mod $p$. We are left with the other generator.  This can sometimes have very small order compared to $p$, like in the case with the Lucas primes considered in Proposition~\ref{prop:lucas}. However, in most of the cases the order will be $~p$ which implies that the index of the centralizer will be also of order $p$. 
+
+\bibliography{mybib}
+\bibliographystyle{plain}
+
+\end{document}
