@@ -9,3 +9,4 @@ Some references:
 * [Algebraic Curves over Finite Fields](https://doi.org/10.1017/CBO9780511608766)(1991) by Carlos Moreno
 * [Introduction to Arithmetic Groups](https://deductivepress.ca/)(2015) by Dave Witte Morris
 * [Dirichlet's unit theorem](https://kconrad.math.uconn.edu/blurbs/gradnumthy/unittheorem.pdf)(?) by Keith Conrad
+* [Solving the Pell equation](https://pub.math.leidenuniv.nl/~lenstrahw/PUBLICATIONS/2008a/art.pdf)(2008) by Hendrik W. Lenstra Jr.
