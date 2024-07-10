@@ -58,11 +58,15 @@
 \newcommand{\GL}{\mathbf{GL}_3} % GL_3
 \newcommand{\PGL}{\mathbf{GL}_3} % PGL_3
 \newcommand{\Mat}{\mathbf{Mat}_3(\mathbb{C})}        % Mat_3( C )
+\newcommand{\Matn}{\mathbf{Mat}_n(\mathbb{C})}        % Mat_n( C )
 \newcommand{\MatZ}{\mathbf{Mat}_3(\mathbb{Z})}        % Mat_3( ZZ )
+\newcommand{\MatnZ}{\mathbf{Mat}_n(\mathbb{Z})}        % Mat_n( ZZ )
 \newcommand{\SLp}{\Gamma_p}        % a congruence subgroup
 \newcommand{\phip}{\phi_p}        % the golden ratio mod(p)
 \newcommand{\hence}{\Rightarrow}        % hence
 \newcommand{\minpoly}{\mathrm{minpoly}}        % minimal polynomial
+
+\newcommand{\SLn}{\mathbf{SL}_n(\mathbb{Z})}        % SL_n(Z)
 
 \DeclareMathOperator{\Spec}{Spec}        % Spec
 \DeclareMathOperator{\Proj}{Proj}        % Proj
@@ -418,7 +422,277 @@ Z_{\SLp}(\tilde A)
 and it is clear that the index is $3$.
 \end{proof}
 
+\section{From $\SL$ to $\SLn$}
 
+Consider
+\begin{itemize}
+\item $p > 2$ a prime number;
+\item $\SLn$ the $n$-th special linear group over $\mathbb{Z}$;
+\item $\SLp$ the $p$th congruence subgroup of $\SLn$;
+\item $Z_G(x)$ the centralizer of $x \in G$;
+\item $ f(t) \eqdef t^n - (1 + pt) (1 + 2pt) \ldots (1 + (n - 1) p t)$;
+\item If $C$ is a matrix, $\chi_C(\lambda) \assign \det(\lambda \Id - C)$ is the characteristics polynomial.
+\item Let $A$ be the irreducible operator with $\chi_A(t) = f(t)$; 
+
+For example, when $n = 4$ $A$ takes a form
+\begin{equation}
+A = 
+\begin{pmatrix}
+0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 6 p \\
+0 & 1 & 0 & 11 p^2 \\
+0 & 0 & 1 & 6 p^3
+\end{pmatrix}
+\in {\mathbf{SL}_4(\mathbb{Z})};        % SL_3(Z)
+\end{equation}
+\item 
+Define $\tilde A \eqdef \Id + p A$.
+
+For example, when $n = 4$ $\tilde A$ takes a form
+\begin{equation}
+\tilde A = \Id + p A =
+\begin{pmatrix}
+1 & 0 & 0 & p \\
+p & 1 & 0 & 6 p^2 \\
+0 & p & 1 & 11 p^3 \\
+0 & 0 & p & 1 + 6 p^4
+\end{pmatrix}
+\in \SLp.
+\end{equation}
+\end{itemize}
+
+\section{Intro2}
+In this note we establish the following results:
+\begin{enumerate}
+\item
+The regularor of $\tilde A$
+grows as $O (\ln^{n-1} (p)) $; 
+
+\item
+If $n$ is prime,
+the index of the centralizers
+$ [Z_{\SLn}(\tilde A) : Z_{\SLp}(\tilde A)] < C$
+is bounded by some constant $C$ and does not depend on $p$.
+\end{enumerate}
+This might be interesting.
+
+\section{Regulators}
+We mimic the proofs from a Keigh Conrad's write-up on the Dirichlet unit theorem \cite{conraddirichlet}.
+
+There are more general estimates due to Duke \cite{duke2003extreme} (see Section 3 Proposition 1).
+
+
+Let $K \eqdef \Q(\alpha)$ be the number field obtain by attaching the root of $f(t)$ to $\Q$.
+\begin{Prop}
+$K / \Q$ is a totally real number field of degree $n$.
+\end{Prop}
+
+\begin{proof}
+First, $f(t)$ is irreducible as it has no rational roots: 
+\begin{gather}
+f(1) = 1 - (1 + p) (1 + 2p) \ldots (1 + (n - 1) p) \ne 0,\\
+f(-1) = (-1)^n - (1 - p) (1 - 2p) \ldots (1 - (n - 1) p ) \ne 0.
+\end{gather}
+
+Let's compute the roots of $f(t)$ approximately and show they are real.
+
+Notice that for $|t| \ll 1$ all but one roots of $f(t)$ are close to the roots of 
+\[
+(1 + pt) (1 + 2pt) \ldots (1 + (n - 1) p t)
+,\] 
+them being $p^{-1} , \frac{1}{2} p^{-1} , \ldots, \frac{1}{(n-1) } p^{-1} $.
+
+As all but one roots are real, the remaining one is also real.
+\end{proof}
+
+The next goal is to tackle the unit group $\O_K^*$ of $K$.
+
+The Dirichlet unit theorem implies that $\O_K^*$ is an abelian group of rank $n-1$ (there might be some finite torsion of roots of unity.  It is bounded universally in $p$).
+% depending only on $n$
+% as the degree of the roots of unity is the totient function which grows as $n \to \infty$.
+A basis of $\O_K^*$ modulo roots of unity is called a system of fundamental units.
+Finding a system of fundamental units in general is a complicated task.
+
+Instead, we shall find a finite index subgroup $U \subset \O_K^*$. 
+% \red{maybe order $\O \subset \O_K$ instead?}
+Then we shall bound above the regulator of $K$ with the regulator of $U$.
+
+Moreover, using a Silverman's lower bound on the regulator of $K$ we bound above the index $[\O_K^*: U] < C_1$ with $C_1$ independent on $p$.
+% \red{maybe say uniformly in $p$ instead?}
+
+
+Define a subgroup 
+\[
+	U = (1 + p \alpha)^{\mathbb{Z}} \ldots (1 + (n-1) p \alpha)^{\mathbb{Z}} \subset \O_K^*
+.\] 
+\begin{Prop}
+$U \subset \O_K^*$ is a finite index subgroup.
+The regulator $\Reg_U$ is bounded above by $C_2 \log(p)^{n-1}$ where $C_2$ is a constant independent on $p$.
+\end{Prop}
+
+\begin{proof}
+We have
+\begin{gather}
+\alpha^n - (1 + p\alpha) (1 + 2p\alpha) \ldots (1 + (n - 1) p\alpha) + 1 = 1  ,
+\\
+(1 + p\alpha) (1 + 2p\alpha) \ldots (1 + (n - 1) p\alpha) = \alpha^n.
+\end{gather}
+It shows that $1 + p \alpha, \ldots, 1 + (n - 1) p \alpha$ are indeed units.
+
+Let $\alpha_1 < \ldots < \alpha_{n-1} < 0 $ be the negative roots of $f$.
+We shall compute them approximately.
+\begin{Lem}
+\[
+\alpha_k = \frac{-1}{k} p^{-1} + \frac{(-1)^{k + 1} }{ k\cdot  k! (n - k + 1)!} p^{-n-1}  + O(p^{-2 n - 1})
+.\] 
+\end{Lem}
+\begin{proof}
+In the first approximation $\alpha_k = \frac{-1}{k} p^{-1} + o(p^{-1})$.
+Let's compute the residue term more persisely. 
+Let $\alpha_k = \frac{-1}{k} p^{-1} ( 1 + \epsilon )$.
+Substituting to $f(t)$, we get
+\begin{gather*}
+(1 + p\alpha_k) (1 + 2p\alpha_k) \ldots (1 + (n - 1) p\alpha_k) = \alpha_k^n, \\
+- (- k p\alpha_k - k) (- 2 k p\alpha_k - k)  \ldots (- (n - 1) k p\alpha_k - k)  = (- k \alpha_k) ^n, \\
+- (1 - \epsilon - k) (2 - 2 \epsilon - k)  \ldots ( (n-1) - (n-1) \epsilon - k)  = p^{-n} (1 + \epsilon)^n, \\
+- (1 - k) (2 - k) \ldots (- 1) k \epsilon 1 \ldots ( (n-1) - k) + O ( \epsilon^2)
+= p^{-n} + O( \epsilon p^{-n} ) , \\
+(-1)^k k! ( n - k - 1)! \epsilon + O ( \epsilon^2)
+= p^{-n} + O( \epsilon p^{-n} ) , \\
+\epsilon = \frac{ (-1)^k p^{-n} }{ k! ( n - k - 1)! }  + O( \epsilon p^{-n} ) + O ( \epsilon^2), \\
+\epsilon = \frac{ (-1)^k p^{-n} }{ k! ( n - k - 1)! }  + O( p^{-2n} ).
+\end{gather*}
+\end{proof}
+
+By the definition of the regulator we have
+\begin{multline}
+\Reg_U = 
+\left|
+\begin{array}{cccc}
+\ln |1 + p \alpha_1| 	& \ln |1 + p \alpha_2| & \ldots & \ln |1 + p \alpha_{n-1}| \\
+\ln |1 + 2 p \alpha_1| 	& \ln |1 + 2 p \alpha_2| & \ldots &  \ln |1 + 2 p \alpha_{n-1}| \\
+\vdots 	& \vdots & \ddots &  \vdots \\
+\ln |1 + (n-1) p \alpha_1| 	& \ln |1 + (n-1) p \alpha_2| & \ldots &  \ln |1 + (n-1) p \alpha_{n-1}| 
+\end{array} 
+\right|
+\\
+\approx
+\left|
+\begin{array}{cccc}
+\ln \left( \frac{ p^{-n}}{n!}  \right)  	& \ln \left( 1 - \frac{1}{2} \right)  & \ldots &  \ln \left( 1 - \frac{1}{n - 1} \right)  \\
+\ln |1 - 2| 	& \ln \left( \frac{p^{-n} }{2\cdot  2! (n-1)!} \right)  & \ldots &  \ln \left( 1 - \frac{2}{n-1} \right)  \\
+\vdots 	& \vdots & \ddots &  \vdots \\
+\ln |1 - (n-1) | 	& \ln |1 - \frac{n-1}2| & \ldots &  \ln \left( \frac{p^{-n}}{(n-1)\cdot (n-1)! 2!} \right) 
+\end{array} 
+\right| \\
+\approx n^{n-1} \log(p)^{n-1} 
+.\end{multline}
+\end{proof}
+From the proof of the Proposition above one finds that the regulator of $U$ $ \Reg_U > 0 $ is positive for big enough prime $p$.
+Hence the generators $(1 + p \alpha), \ldots, (1 + (n-1) p)$ of $U$ are multiplicatively independent, and $U \subset \O_K^*$ is a finite index subgroup.
+
+We shall bound the index $[\O_K^* : U]$ from above via the following
+\begin{Thm}[Silverman, \cite{silverman1984inequality}]
+Let $K$ be a number field of degree $d$ with regulator $R$, and absolute discriminant $D_K$. 
+Let $r(K)$ be the rank of the unit group in $K$, and let $p(K)$ be the maximum of $r(k)$ as $k$ ranges over proper subfields of $K$. 
+We prove 
+\[
+R_K > c_d (\log \gamma_d  D_K )^{r(K) - p(K)} 
+\] 
+for constants $c_d, \gamma_d$ depending only on $d$. 
+\end{Thm}
+\red{It seems it's actually due to 
+Robert Remak in
+"Über Größenbeziehungen zwischen Diskriminante
+und Regulator eines algebraischen Zahlkörpers" }
+
+\begin{Prop}
+Let $n$ be a prime.
+Then the index $[\O_K^* : U] < C_3$ is bounded from above by a constant $C_3$ independent on $p$.
+\end{Prop}
+\begin{proof}
+The discriminant of $K$ is the discriminant of the polynomial $f(t)$, which is approximately
+\[
+	\disc_K = \disc_f = O( p^{2 (n - 1)^2} p^{-(n - 1) (n - 2)} ) = O ( p^{n (n - 1) } )
+.\] 
+More precisely,
+\[
+	\disc_K = \disc_f \approx 
+	1!^2 \ldots (n-1)!^2 p^{n (n - 1) }
+.\] 
+
+Given that $n$ is prime and so there are no nontrivial subfield of $K$ the Silverman's theorem implies 
+$$\Reg_K > C_4 (\log \disc_K)^{n-1} \approx n^{n-1} (n-1)^{n-1} C_4 \log(p)^{n-1}  > C_5\log(p)^{n-1}.$$
+
+It is easy to see that 
+\[
+\Reg_U = [\O_K^* : U] \Reg_K
+.\] 
+Thus we have
+\[
+ C_2 \log(p)^{n-1} > \Reg_U = 
+[\O_K^* : U] \Reg_K >
+[\O_K^* : U] C_5 \log(p)^{n-1}
+.\] 
+It follows that the index is bounded from above
+\[
+[\O_K^* : U] < \frac{C_2}{C_5}
+,\] 
+as desired.
+\end{proof}
+
+
+\section{Centralizers}
+\begin{Prop}
+Let $n$ be a prime.  
+Then the index of the centralizers
+\[
+	[Z_{\SLn}(\tilde A) : Z_{\SLp}(\tilde A)] < C_3
+\] 
+is bounded from above by a constant independent of $p$.
+\end{Prop}
+\begin{proof}
+	We shall exploit the properties of the previously introduced number field $K = \mathbb{Q}(\alpha)$, where $\alpha$ is a root of $f(t) = t^n - (1 + pt) \ldots (1 + (n-1) pt)$.
+
+Since $A$ is regular, 
+% over $\mathbb{Z}$
+there is an isomorphism of $\mathbb{Z}$-algebras 
+
+\[
+\Phi: \mathbb{Z}[A] 
+\mathop{\longrightarrow}^{\sim}
+\mathbb{Z}[\alpha], A \mapsto \alpha
+.\] 
+
+It identifies the stabilizer of $\tilde A$ in $\SLn$ with the multiplicative group of the order $\mathbb{Z}[\alpha] \subset \O_K$.
+\[
+Z_{\SLn}(\tilde A) 
+= Z_{\SLn}(A) 
+= \mathbb{Z}[A]^*
+\mathop{\simeq }^{\Phi} 
+\mathbb{Z}[\alpha]^*
+.\] 
+
+The isomorphism $\Phi$ identifies
+the subgroup $U \subset \mathbb{Z}[\alpha]^*$ with
+$$
+\Phi^{-1} (U) = \tilde A^{\mathbb{Z}} (2 \tilde A - \Id )^{\mathbb{Z}} \ldots   ((n-1) \tilde A - (n-2) \Id )^{\mathbb{Z}} \subset Z_{\SLp}(\tilde A) 
+.$$
+
+Thus, there is a chain of inclusions
+\[
+\Phi^{-1} (U) \subset Z_{\SLp}(\tilde A) 
+\subset Z_{\SLn}(\tilde A) = \Phi^{-1} \mathbb{Z}[\alpha]^*
+.\] 
+Therefore, there is a bound
+\[
+[Z_{\SLn}(\tilde A) : Z_{\SLp}(\tilde A) ]
+\le
+[\mathbb{Z}[\alpha]^*, U]
+\le 
+[\O_K^*, U] < C_3
+.\] 
+\end{proof}
 
 
 \bibliography{mybib}
