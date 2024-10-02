@@ -72,6 +72,8 @@
 \DeclareMathOperator{\Proj}{Proj}        % Proj
 \DeclareMathOperator{\Reg}{Reg}        % Regulator
 \DeclareMathOperator{\disc}{disc}        % discriminant
+\DeclareMathOperator{\Hom}{Hom}        % Hom
+\DeclareMathOperator{\Aut}{Aut}        % Aut
 
 
 \begin{document}
@@ -175,6 +177,7 @@ We shall compute them approximately.
 .\end{gather*}
 
 \begin{Rem}
+	\label{rem_roots_estimate}
 A computation shows that for $p = 100$ we have
 \begin{gather*}
 \alpha_1 = -9999.99999999000 , \\
@@ -422,7 +425,6 @@ Z_{\SLp}(\tilde A)
 and it is clear that the index is $3$.
 \end{proof}
 
-\newpage
 \section{Computing (co)homology}
 Christophe Soulé \cite{soule1978}
 computed the cohomology of $\SL$
@@ -475,29 +477,99 @@ f: \mathbb{Z}^2 \to \SL,
 \[
 (k, l) \mapsto A^k B^l
 .\] 
-\fbox{
-\parbox{\textwidth}{
-The goal for us it to understand the map 
+
+\begin{Thm}
+	\label{thm_push_homology_vanishes}
+The pushforward map in the second homology 
 \[
+f_*:
 H_2(\mathbb{Z}^2, \mathbb{Z}) \cong \mathbb{Z} \to 
 H_2(\SL, \mathbb{Z}) \cong (\mathbb{Z}/2\mathbb{Z})^{2} 
-.\] 
-}}
+\] 
+is zero.
+\end{Thm}
+The goal of this section is to prove this theorem.
 
-Consider the natural embedding 
+The first observation is that one can pass from the homology to the cohomology with coefficients $\mathbb{Z}/ 2 \mathbb{Z}$.
+
+\begin{Lem}
+	\label{lemma_push_vanishes_iff_pull_vanishes}
+The pushforward
 \[
-i: \SL \embeds {\mathbf{SL}_3(\mathbb{R})}
+f_*:
+H_2(\mathbb{Z}^2, \mathbb{Z}) \cong \mathbb{Z} \to 
+H_2(\SL, \mathbb{Z}) \cong (\mathbb{Z}/2\mathbb{Z})^{2} 
+\] 
+is zero 
+iff
+the pullback
+\[
+f^*:
+H^2(\SL,  \mathbb{Z}/2 \mathbb{Z}) \cong (\mathbb{Z}/2\mathbb{Z})^{2} \to
+H^2(\mathbb{Z}^2, \mathbb{Z}/2 \mathbb{Z}) \cong \mathbb{Z}/2 \mathbb{Z}
+\] 
+is zero.
+\end{Lem}
+\begin{proof}
+As the first homology 
+\[
+H_1(\mathbb{Z}^2, \mathbb{Z}) \cong \mathbb{Z}^2, 
+H_1(\SL, \mathbb{Z}) \cong 0
+\] 
+are torsion-free, the universal coefficien formula gives perfect $\mathbb{Z}/2\mathbb{Z}$-pairings between homology and cohomology
+\[
+H^2(\mathbb{Z}^2, \mathbb{Z}/2 \mathbb{Z}) = \Hom(H_2(\mathbb{Z}^2, \mathbb{Z}), \mathbb{Z}/2 \mathbb{Z})
+,\] 
+\[
+H^2(\SL, \mathbb{Z}/2 \mathbb{Z}) = \Hom(H_2(\SL, \mathbb{Z}), \mathbb{Z}/2 \mathbb{Z})
 .\] 
+Therefore the pullback in cohomology is the transposed map of the pushforward in homology and one is zero iff the other is zero.
+\end{proof}
+
+Next, let us find a nicer description for $H^2(\SL, \mathbb{Z}/2 \mathbb{Z})$.
+
+\begin{Cla}
+\begin{itemize}
+	\item The second cohomology $H^2(G, M)$ classify the extensions $0 \to M \to \tilde G \to G \to 0$;
+	\item In particular, $H^2(G, \mathbb{Z}/2\mathbb{Z})$ correspond to the extensions of degree $2$;
+\item Given an extension $0 \to M \to \tilde G \to G \to 0$ and a principle $G$-bundle over $X$ we get its class in $H^2(X, M)$ via the boundary (in other words, Bockstein) homomorphism $H^1(X, G) \to H^2(X, M)$.  In details, the Bockstein goes by taking the $1$-cocycle defining the $G-$bundle to $\tilde G$ and apply the Cech differential;
+	\item $H^2( \mathbf{SL}_3(\mathbb{R}), \mathbb{Z}/ 2 \mathbb{Z}) \cong
+	H^2( \mathbf{SL}_3(\mathbb{F}_2), \mathbb{Z}/ 2 \mathbb{Z}) \cong \mathbb{Z}/2\mathbb{Z}$;
+\item The corresponding unique extensions of degree two are $\widetilde{\mathbf{SL}_3}(\mathbb{R})$ and $\mathbf{SL}_2(\mathbb{F}_7)$.
+	We make use of the exceptional isomorphism $\mathbf{PSL}_2(\mathbb{F}_7) \cong \mathbf{SL}_3(\mathbb{F}_2)$, see, for example, \cite{merzon_psl_2_7_sl_3_2}.
+\item If $E$ is a principle $\mathbf{SL}_3(\mathbb{R})$-bundle on $X$ the corresponding class in $H^2(X, \mathbb{Z}/ 2 \mathbb{Z})$ is called $w_2(E)$, the second Stiefel-Whitney class;
+\item If $E$ is a principle $\mathbf{SL}_3(\mathbb{F}_2)$-bundle on $X$ let us denote the corresponding class in $H^2(X, \mathbb{Z}/ 2 \mathbb{Z})$ by $u_2(E)$.
+\end{itemize}
+\end{Cla}
+This is all very well known.
+For the cohomology of $\mathbf{SL}_3(\mathbb{F}_2)$ see, for example, \cite{adem2006lecturescohomologyfinitegroups}.
+
+Now, consider the natural embeddings
+\[
+i_1: \SL \embeds {\mathbf{SL}_3(\mathbb{R})}
+, \] 
+\[
+i_2: \SL \embeds {\mathbf{SL}_3(\mathbb{F}_2)}
+.\] 
+
 \begin{Prop}
 The pullback 
 \[
-i^*: H^2(B\mathbf{SL}_3(\mathbb{R}), \mathbb{Z}/ 2 \mathbb{Z}) \cong \mathbb{Z} / 2 \mathbb{Z} \to 
+i_1^* \oplus i_2^*: 
+H^2(B\mathbf{SL}_3(\mathbb{R}), \mathbb{Z}/ 2 \mathbb{Z}) \oplus
+H^2(B\mathbf{SL}_3(\mathbb{F}_2), \mathbb{Z}/ 2 \mathbb{Z}) \cong (\mathbb{Z} / 2 \mathbb{Z})^2 \to 
 H^2(\SL, \mathbb{Z}/ 2 \mathbb{Z}) \cong (\mathbb{Z}/2\mathbb{Z})^{2}
 \] 
-is an embedding.
+is an isomorphism.
 \end{Prop}
+
 \begin{proof}
-Consider a pair of matrices
+It is enough to show that a principal $\SL$ bundle $E$ on $\mathbb{T}^2$ can have an arbitrary combination of $(w_2(E), u_2(E)) \in (\mathbb{Z}/ 2\mathbb{Z})^2$.
+
+Plan: we shall construct principal bundles $E_1, E_2$ on $\mathbb{T}^2$ with $(w_2(E_1), u_2(E_1)) = (1, 0)$ and $u_2(E_2) = 1$.
+This will prove the proposition.
+
+The first bundle $E_1$ is defined via the monodromy matrices $C_1, C_2$
 \[
 C_1 = 
 \begin{pmatrix}
@@ -513,56 +585,61 @@ C_2 =
 0 & 0 & -1
 \end{pmatrix} \in \SL
 .\] 
-They give rise to a principle $\SL$ bundle $E$ on $\mathbb{T}^2$ with non-zero $w_2$, the second Stiefel-Whitney class.
-
-Indeed, by the splitting principle we have
+By the splitting principle we have
 \[
-w(E) = w(E_1) w(E_2) w (E_3)
+w(E_1)
 = (1 + x) (1 + x + y) (1 + y) 
-= 1 
-+ 2 (x + y) 
-+ (x^2 + xy + xy + xy + y^2) 
-+ x ( x + y) y 
 = 1 + xy
 ,\] 
 where $x, y$ denote the generators of $H^1(\mathbb{T}^2, \mathbb{Z}/ 2 \mathbb{Z})$.
-Therefore the composition 
-\[
-H^2(B\mathbf{SL}_3(\mathbb{R}), \mathbb{Z}/ 2 \mathbb{Z}) \cong \mathbb{Z} / 2 \mathbb{Z} \to 
-H^2(\SL, \mathbb{Z}/ 2 \mathbb{Z}) \cong (\mathbb{Z}/2\mathbb{Z})^{2}
-\to
-H^2(\mathbb{T}^2, \mathbb{Z}/ 2 \mathbb{Z}) \cong (\mathbb{Z}/2\mathbb{Z})
-\] 
-is nonzero and thus the first map is an embedding.
+Therefore $w_2(E_1) = 1$.
+As modulo $2$ the matrices $C_1, C_2$ are the identity the bundle $E_1$ mod $2$ is trivial; thus $u_2(E_1) = 0$.
+
+Define $D_1' = 
+\left( \begin{smallmatrix}0&6\\1&0\end{smallmatrix}\right) 
+, D_2' =
+\left( \begin{smallmatrix}2&3\\3&5\end{smallmatrix}\right)
+\in \mathbf{SL}_2(\mathbb{F}_7)$.
+Project the matrices to 
+$\in \mathbf{PSL}_2(\mathbb{F}_7) \cong \in \mathbf{SL}_3(\mathbb{F}_2) $.
+Pick a pair of lifts $D_1, D_2 \in \mathbf{SL}_3(\mathbb{Z})$.
+
+Define the bundle $E_2$ corresponding to the monodromy matrices $D_1, D_2$. 
+We claim that $u_2(E_2) = 1$.
+
+Indeed, we shall compute the Bockstein morphism $H^1(\mathbb{T}^2, \mathbf{SL}_3(\mathbb{F}_2) \to H^2(\mathbb{T}^2, \mathbb{Z}/ 2 \mathbb{Z})$ by lifting the cocycles.
+
+One checks that $D_1' D_2' = - D_2' D_1'$; thus the image of the Bockstein map is nontrivial.
+
+Thus we have showed that $E_1, E_2$ have the right characteristic classes and we are done.
 \end{proof}
-Thus $w_2$ is one of the generators of the second cohomology of $\SL$.
+\begin{proof}[Proof of the Theorem \ref{thm_push_homology_vanishes}]
+By Lemma \ref{lemma_push_vanishes_iff_pull_vanishes} we shall show that the pullback map in second $\mathbb{Z}/ 2 \mathbb{Z}$-cohomology vanishes.
+
 Consider the principal $\SL$-bundle $E$ on $\mathbb{T}^2$ associated with $A, B$.
-\begin{Prop}
-	$w_2(E) = 0$.
-\end{Prop}
-\begin{proof}
+We should show that $w_2(E) = 0$ and $u_2(E) = 0$.
+
 By the splitting principle
+using that the roots of the characteristic polynomial 
+\ref{rem_roots_estimate} 
+satisfy \[
+\alpha_1, 1 + p \alpha_1 < 0, 
+\alpha_2, 1 + p \alpha_2 < 0, 
+\alpha_3, 1 + p \alpha_3 > 0 
+\] 
+we get the Stiefel-Whitney class to be
 \[
 w(E) = w(E_1) w(E_2) w (E_3)
 = (1 + x + y) (1 + x + y) (1) 
 = 1
-.\]
+,\]
+and thus $w_2(E) = 0$ indeed does vanish.
+
+Modulo $2$ one easily spots that $B = A^5 \pmod{2}$, thus their lifts to $\mathbf{SL}_2(\mathbf{F}_7)$ do commute and the image of the Bockstain morphism vanishes; thus $u_2(E) = 0$.
+% the explanation is that we should consider SL_3(F_2) in the automorphisms of F_8 = F_2[t]/t^3 + t^2 + 1 as a linear space over F_2; then A is multiplication by t and B is a multiplication by 1 + t = t^5. 
 \end{proof}
-There are perfect pairings
-\[
-H_2(\SL, \mathbb{Z}) \times 
-H^2(\SL, \mathbb{Z}/2 \mathbb{Z}) \to \mathbb{Z}/ 2 \mathbb{Z}
-,\] 
-\[
-H_2(\mathbb{T}^2, \mathbb{Z}) \times 
-H^2(\mathbb{T}^2, \mathbb{Z}/2 \mathbb{Z}) \to \mathbb{Z}/ 2 \mathbb{Z}
-.\] 
-Combining them, we get that the map
-\[
-H_2(\mathbb{Z}^2, \mathbb{Z}) \cong \mathbb{Z} \to 
-H_2(\SL, \mathbb{Z}) \cong (\mathbb{Z}/2\mathbb{Z})^{2} 
-\] 
-has one coordinate equal to zero.
+
+
 
 \newpage
 \section{From $\SL$ to $\SLn$}
@@ -839,6 +916,6 @@ Therefore, there is a bound
 
 
 \bibliography{mybib}
-\bibliographystyle{plain}
+\bibliographystyle{alpha}
 
 \end{document}
