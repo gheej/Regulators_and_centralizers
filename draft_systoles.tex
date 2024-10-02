@@ -119,7 +119,7 @@ p & 1 & 0 \\
 In this note we establish the following results:
 \begin{enumerate}
 \item
-The regularor of $\tilde A$
+The regulator of $\tilde A$
 grows as $\approx 3 \ln^2(p)$. 
 
 That is, $\Reg ( \Q(\alpha)/\Q ) \approx 3 \ln^2(p) $ for $\alpha$ a root of $\chi_{\tilde A}$.
@@ -422,6 +422,149 @@ Z_{\SLp}(\tilde A)
 and it is clear that the index is $3$.
 \end{proof}
 
+\newpage
+\section{Computing (co)homology}
+Christophe Soulé \cite{soule1978}
+computed the cohomology of $\SL$
+to be
+\begin{table}[h!]
+	\centering
+\begin{tabular}{|c|c|c|c|c|c|c}
+	\hline
+	$n$        & $0$                               & $1$                               & $2$                               & $3$                               & $4$  & \ldots\\
+\hline 
+	$H^n(\SL, \mathbb{Z})$ & $\mathbb{Z}$ & $0$ & $0$ & $(\mathbb{Z}/2\mathbb{Z})^{2} $ & $(\mathbb{Z}/3\mathbb{Z})^{2} \oplus (\mathbb{Z}/4\mathbb{Z})^{2} $ & \ldots \\
+\hline
+\end{tabular}.
+\end{table}
+
+The universal coefficient formula gives us the homology.
+\begin{table}[h!]
+	\centering
+\begin{tabular}{|c|c|c|c|c|c}
+	\hline
+	$n$        & $0$                               & $1$                               & $2$                               & $3$                               & \ldots\\
+\hline 
+	$H_n(\SL, \mathbb{Z})$ & $\mathbb{Z}$ & $0$ &  $(\mathbb{Z}/2\mathbb{Z})^{2} $ & $(\mathbb{Z}/3\mathbb{Z})^{2} \oplus (\mathbb{Z}/4\mathbb{Z})^{2} $ & \ldots \\
+\hline
+\end{tabular}
+\end{table}
+
+Recall the matrices 
+\[
+A = 
+\begin{pmatrix}
+0 & 0 & 1 \\
+1 & 0 & 0 \\
+0 & 1 & -p^2
+\end{pmatrix}
+,
+B = \Id + p A =
+\begin{pmatrix}
+1 & 0 & p \\
+p & 1 & 0 \\
+0 & p & 1 - p^3
+\end{pmatrix}
+.\] 
+We denote $\tilde A$ by $B$ for convenience.
+
+As $A, B $ commute they define a map
+\[
+f: \mathbb{Z}^2 \to \SL, 
+\] 
+\[
+(k, l) \mapsto A^k B^l
+.\] 
+\fbox{
+\parbox{\textwidth}{
+The goal for us it to understand the map 
+\[
+H_2(\mathbb{Z}^2, \mathbb{Z}) \cong \mathbb{Z} \to 
+H_2(\SL, \mathbb{Z}) \cong (\mathbb{Z}/2\mathbb{Z})^{2} 
+.\] 
+}}
+
+Consider the natural embedding 
+\[
+i: \SL \embeds {\mathbf{SL}_3(\mathbb{R})}
+.\] 
+\begin{Prop}
+The pullback 
+\[
+i^*: H^2(B\mathbf{SL}_3(\mathbb{R}), \mathbb{Z}/ 2 \mathbb{Z}) \cong \mathbb{Z} / 2 \mathbb{Z} \to 
+H^2(\SL, \mathbb{Z}/ 2 \mathbb{Z}) \cong (\mathbb{Z}/2\mathbb{Z})^{2}
+\] 
+is an embedding.
+\end{Prop}
+\begin{proof}
+Consider a pair of matrices
+\[
+C_1 = 
+\begin{pmatrix}
+-1 & 0 & 0 \\
+0 & -1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+,
+C_2 =
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & -1 & 0 \\
+0 & 0 & -1
+\end{pmatrix} \in \SL
+.\] 
+They give rise to a principle $\SL$ bundle $E$ on $\mathbb{T}^2$ with non-zero $w_2$, the second Stiefel-Whitney class.
+
+Indeed, by the splitting principle we have
+\[
+w(E) = w(E_1) w(E_2) w (E_3)
+= (1 + x) (1 + x + y) (1 + y) 
+= 1 
++ 2 (x + y) 
++ (x^2 + xy + xy + xy + y^2) 
++ x ( x + y) y 
+= 1 + xy
+,\] 
+where $x, y$ denote the generators of $H^1(\mathbb{T}^2, \mathbb{Z}/ 2 \mathbb{Z})$.
+Therefore the composition 
+\[
+H^2(B\mathbf{SL}_3(\mathbb{R}), \mathbb{Z}/ 2 \mathbb{Z}) \cong \mathbb{Z} / 2 \mathbb{Z} \to 
+H^2(\SL, \mathbb{Z}/ 2 \mathbb{Z}) \cong (\mathbb{Z}/2\mathbb{Z})^{2}
+\to
+H^2(\mathbb{T}^2, \mathbb{Z}/ 2 \mathbb{Z}) \cong (\mathbb{Z}/2\mathbb{Z})
+\] 
+is nonzero and thus the first map is an embedding.
+\end{proof}
+Thus $w_2$ is one of the generators of the second cohomology of $\SL$.
+Consider the principal $\SL$-bundle $E$ on $\mathbb{T}^2$ associated with $A, B$.
+\begin{Prop}
+	$w_2(E) = 0$.
+\end{Prop}
+\begin{proof}
+By the splitting principle
+\[
+w(E) = w(E_1) w(E_2) w (E_3)
+= (1 + x + y) (1 + x + y) (1) 
+= 1
+.\]
+\end{proof}
+There are perfect pairings
+\[
+H_2(\SL, \mathbb{Z}) \times 
+H^2(\SL, \mathbb{Z}/2 \mathbb{Z}) \to \mathbb{Z}/ 2 \mathbb{Z}
+,\] 
+\[
+H_2(\mathbb{T}^2, \mathbb{Z}) \times 
+H^2(\mathbb{T}^2, \mathbb{Z}/2 \mathbb{Z}) \to \mathbb{Z}/ 2 \mathbb{Z}
+.\] 
+Combining them, we get that the map
+\[
+H_2(\mathbb{Z}^2, \mathbb{Z}) \cong \mathbb{Z} \to 
+H_2(\SL, \mathbb{Z}) \cong (\mathbb{Z}/2\mathbb{Z})^{2} 
+\] 
+has one coordinate equal to zero.
+
+\newpage
 \section{From $\SL$ to $\SLn$}
 
 Consider
