@@ -134,7 +134,7 @@ does not depend on $p$.
 This might be interesting.
 
 \section{Regulators}
-We mimic the proofs from a Keigh Conrad's write-up on the Dirichlet unit theorem \cite{conraddirichlet}.
+We mimic the proofs from a Keith Conrad's write-up on the Dirichlet unit theorem \cite{conraddirichlet}.
 
 
 Let $\Q(\alpha)$ be the number field obtain by attaching the root of $f(t)$ to $\Q$.
@@ -531,11 +531,11 @@ Next, let us find a nicer description for $H^2(\SL, \mathbb{Z}/2 \mathbb{Z})$.
 \begin{Cla}
 \begin{itemize}
 	\item The second cohomology $H^2(G, M)$ classify the extensions $0 \to M \to \tilde G \to G \to 0$;
-	\item In particular, $H^2(G, \mathbb{Z}/2\mathbb{Z})$ correspond to the extensions of degree $2$;
+	\item In particular, $H^2(G, \mathbb{Z}/2\mathbb{Z})$ correspond to the extensions of index two;
 \item Given an extension $0 \to M \to \tilde G \to G \to 0$ and a principle $G$-bundle over $X$ we get its class in $H^2(X, M)$ via the boundary (in other words, Bockstein) homomorphism $H^1(X, G) \to H^2(X, M)$.  In details, the Bockstein goes by taking the $1$-cocycle defining the $G-$bundle to $\tilde G$ and apply the Cech differential;
 	\item $H^2( \mathbf{SL}_3(\mathbb{R}), \mathbb{Z}/ 2 \mathbb{Z}) \cong
 	H^2( \mathbf{SL}_3(\mathbb{F}_2), \mathbb{Z}/ 2 \mathbb{Z}) \cong \mathbb{Z}/2\mathbb{Z}$;
-\item The corresponding unique extensions of degree two are $\widetilde{\mathbf{SL}_3}(\mathbb{R})$ and $\mathbf{SL}_2(\mathbb{F}_7)$.
+\item The corresponding unique extensions of index two are $\widetilde{\mathbf{SL}_3}(\mathbb{R})$ and $\mathbf{SL}_2(\mathbb{F}_7)$.
 	We make use of the exceptional isomorphism $\mathbf{PSL}_2(\mathbb{F}_7) \cong \mathbf{SL}_3(\mathbb{F}_2)$, see, for example, \cite{merzon_psl_2_7_sl_3_2}.
 \item If $E$ is a principle $\mathbf{SL}_3(\mathbb{R})$-bundle on $X$ the corresponding class in $H^2(X, \mathbb{Z}/ 2 \mathbb{Z})$ is called $w_2(E)$, the second Stiefel-Whitney class;
 \item If $E$ is a principle $\mathbf{SL}_3(\mathbb{F}_2)$-bundle on $X$ let us denote the corresponding class in $H^2(X, \mathbb{Z}/ 2 \mathbb{Z})$ by $u_2(E)$.
@@ -549,7 +549,7 @@ Now, consider the natural mappings
 i: \SL \embeds {\mathbf{SL}_3(\mathbb{R})}
 , \] 
 \[
-\pi: \SL \embeds {\mathbf{SL}_3(\mathbb{F}_2)}
+\pi: \SL \projects {\mathbf{SL}_3(\mathbb{F}_2)}
 .\] 
 
 \begin{Prop}
@@ -601,7 +601,7 @@ Define $D_1' =
 \left( \begin{smallmatrix}2&3\\3&5\end{smallmatrix}\right)
 \in \mathbf{SL}_2(\mathbb{F}_7)$.
 Project the matrices to 
-$\in \mathbf{PSL}_2(\mathbb{F}_7) \cong \in \mathbf{SL}_3(\mathbb{F}_2) $.
+$\in \mathbf{PSL}_2(\mathbb{F}_7) \simeq \mathbf{SL}_3(\mathbb{F}_2) $.
 Pick a pair of commuting lifts $D_1, D_2 \in \mathbf{SL}_3(\mathbb{Z})$.
 One can take them to be 
 \begin{equation}
@@ -634,13 +634,18 @@ In view of the Lemma \ref{lemma_push_vanishes_iff_pull_vanishes} we shall show t
 Consider the principal $\SL$-bundle $E$ on $\mathbb{T}^2$ associated with $A, B$.
 We should show that $w_2(E) = 0$ and $u_2(E) = 0$.
 
-By the splitting principle
+Diagonalizing $A, B$ over reals by the splitting principle
 using that the roots of the characteristic polynomial 
 \ref{rem_roots_estimate} 
-satisfy \[
+satisfy 
+\[
 \alpha_1, 1 + p \alpha_1 < 0, 
+\] 
+\[
 \alpha_2, 1 + p \alpha_2 < 0, 
-\alpha_3, 1 + p \alpha_3 > 0 
+\] 
+\[
+\alpha_3, 1 + p \alpha_3 > 0 .
 \] 
 we get the Stiefel-Whitney class to be
 \[
@@ -653,6 +658,9 @@ and thus $w_2(E) = 0$ indeed does vanish.
 Modulo $2$ one easily spots that $B = A^5 \pmod{2}$, thus their lifts to $\mathbf{SL}_2(\mathbf{F}_7)$ do commute and the image of the Bockstain morphism vanishes; thus $u_2(E) = 0$.
 % the explanation is that we should consider SL_3(F_2) in the automorphisms of F_8 = F_2[t]/t^3 + t^2 + 1 as a linear space over F_2; then A is multiplication by t and B is a multiplication by 1 + t = t^5. 
 \end{proof}
+\begin{Rem}
+Similar computations show that the pushforward in second homology of $\mathbb{Z}^2 \to \SL$ defined via $A^3, B$ vanishes, too.
+\end{Rem}
 
 
 
