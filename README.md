@@ -1,7 +1,7 @@
 Description
 ==========
 
-Here are the notes for our project with Misha Belolipetsky studying and computing explicit examples of 2-dim tori for the symmetric space of the group SL_3(K) for K a global field.
+Here are the notes for our project with Misha Belolipetsky and Shmuel Weinberger studying and computing explicit examples of 2-dim flat tori in locally symmetric spaces of the group $\mathbf{SL}_3(\mathbb R)$.
 
 Some references:
 * [Number Theory in Function Fields](https://link.springer.com/book/10.1007/978-1-4757-6046-0)(2002) by Michael Rosen
